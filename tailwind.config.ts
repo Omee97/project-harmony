@@ -57,6 +57,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Node type colors
+        node: {
+          input: "hsl(var(--node-input))",
+          output: "hsl(var(--node-output))",
+          llm: "hsl(var(--node-llm))",
+          text: "hsl(var(--node-text))",
+          api: "hsl(var(--node-api))",
+          transform: "hsl(var(--node-transform))",
+          filter: "hsl(var(--node-filter))",
+          merge: "hsl(var(--node-merge))",
+          condition: "hsl(var(--node-condition))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +77,32 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.6" },
+          "50%": { opacity: "1" },
+        },
+        "slide-in": {
+          from: { opacity: "0", transform: "translateY(-10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "slide-in": "slide-in 0.3s ease-out",
+      },
+      boxShadow: {
+        node: "0 8px 32px -8px hsl(0 0% 0% / 0.5)",
+        "node-hover": "0 12px 40px -8px hsl(0 0% 0% / 0.6)",
+        glow: "0 0 20px -5px",
       },
     },
   },
