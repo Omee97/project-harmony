@@ -10,7 +10,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { supabase } from '@/integrations/supabase/client';
+
+const FASTAPI_URL = 'http://localhost:8000/pipelines/parse';
 
 interface PipelineResult {
   num_nodes: number;
@@ -36,14 +37,20 @@ const SubmitButton = () => {
     const edges = getEdges();
 
     try {
-      const { data, error: fnError } = await supabase.functions.invoke('parse-pipeline', {
-        body: { nodes, edges },
+      const response = await fetch(FASTAPI_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nodes, edges }),
       });
 
-      if (fnError) {
-        throw new Error(fnError.message);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to analyze pipeline');
       }
 
+      const data = await response.json();
       setResult(data);
       setDialogOpen(true);
     } catch (err) {
